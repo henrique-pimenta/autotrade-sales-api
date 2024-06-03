@@ -1,0 +1,24 @@
+services:
+
+  app:
+    build: .
+    container_name: autotrade-sales-api-app
+    depends_on:
+      - db
+    image: autotrade-sales-api-app:latest
+    ports:
+      - 8000:8000
+    volumes:
+      - source: .
+        target: /autotrade-sales-api
+        type: bind
+    command: uvicorn src.interface_adapters.fastapi.main:app --host 0.0.0.0 --port 8000 --reload
+
+  db:
+    container_name: autotrade-sales-api-db
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_DATABASE: dev
+    ports:
+      - 27017:27017
