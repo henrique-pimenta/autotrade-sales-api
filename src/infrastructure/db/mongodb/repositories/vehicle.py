@@ -17,7 +17,8 @@ class VehicleRepository(VehicleRepositoryInterface):
         await self._collection.insert_one(document)
 
     async def list(self, filter_query):
-        cursor = self._collection.find(filter_query)
+        ascending = 1
+        cursor = self._collection.find(filter_query).sort("price_cents", ascending)
         documents = await cursor.to_list(length=None)
         return [
             ReadVehicleOutputDTO(
