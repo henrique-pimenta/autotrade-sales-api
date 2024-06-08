@@ -7,6 +7,7 @@ from src.infrastructure.db.mongodb.repositories.vehicle import (
     provide_vehicle_repository,
 )
 from src.interface_adapters.controllers.vehicle import VehicleController
+from src.interface_adapters.fastapi.auth import provide_api_key_auth
 from src.interface_adapters.gateways.repositories.vehicle import (
     VehicleRepositoryInterface,
 )
@@ -22,6 +23,9 @@ router = APIRouter()
 
 @router.post(
     "/",
+    dependencies=[
+        Depends(provide_api_key_auth("REQUESTS_FROM_ADMIN_TO_SALES_API_KEY"))
+    ],
     response_description="Create vehicle",
     response_model=BaseModel,
     status_code=status.HTTP_200_OK,
@@ -64,6 +68,9 @@ async def list(
 
 @router.patch(
     "/{id}",
+    dependencies=[
+        Depends(provide_api_key_auth("REQUESTS_FROM_ADMIN_TO_SALES_API_KEY"))
+    ],
     response_description="Update vehicle",
     response_model=BaseModel,
     status_code=status.HTTP_200_OK,
