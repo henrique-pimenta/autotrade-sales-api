@@ -29,6 +29,12 @@ class SaleRepository(SaleRepositoryInterface):
             for doc in documents
         ]
 
+    async def update(self, id, dto):
+        partial_document = asdict(
+            dto, dict_factory=lambda x: {k: v for (k, v) in x if v is not None}
+        )
+        await self._collection.update_one({"id": str(id)}, {"$set": partial_document})
+
 
 def provide_sale_repository() -> SaleRepositoryInterface:
     return SaleRepository()

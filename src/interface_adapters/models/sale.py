@@ -23,6 +23,7 @@ class SaleCreateOutputModel(BaseModel):
     id: UUID = Field(...)
     sale_datetime: datetime
     payment_status: str
+    checkout_link: str
 
 
 class SaleFullModel(BaseModel):
@@ -49,7 +50,7 @@ class SaleFullModelCollection(BaseModel):
     sales: List[SaleFullModel]
 
 
-class SaleUpdateModel(BaseModel):
+class SaleUpdateInputModel(BaseModel):
     payment_status: str = Field(...)
 
     class Config:

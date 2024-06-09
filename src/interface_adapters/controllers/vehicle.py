@@ -46,9 +46,7 @@ class VehicleController:
 
     async def update(self, id: UUID, input_data: VehicleUpdateInputModel) -> BaseModel:
         input_dto = UpdateVehicleDTO(**input_data.model_dump(exclude_unset=True))
-
         await UpdateVehicleInteractor(
             vehicle_repository=self.vehicle_repository
         ).execute(id=id, input_dto=input_dto)
-
         return EmptyResponse()

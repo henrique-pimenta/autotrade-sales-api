@@ -11,3 +11,8 @@ class DomainException(Exception):
 class InvalidUUIDException(DomainException):
     def __init__(self, message="Invalid UUID"):
         super().__init__(message)
+
+
+class NotFoundException(DomainException):
+    def __init__(self, message="Object not found"):
+        super().__init__(message)

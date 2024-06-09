@@ -17,7 +17,7 @@ class VehicleRepositoryInterface(
         pass
 
     @abstractmethod
-    async def find_by_id(self, id):
+    async def find_by_id(self, id) -> ReadVehicleOutputDTO:
         pass
 
     @abstractmethod

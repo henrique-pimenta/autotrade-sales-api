@@ -12,5 +12,8 @@ class CreateSaleInputDTO:
 @dataclass
 class CreateSaleOutputDTO:
     id: UUID
+    vehicle_id: UUID
+    buyer_cpf: str
     sale_datetime: datetime
     payment_status: str
+    checkout_link: str

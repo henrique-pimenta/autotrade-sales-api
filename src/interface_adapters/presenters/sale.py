@@ -18,6 +18,7 @@ class SalePresenter:
             id=dto.id,
             sale_datetime=dto.sale_datetime,
             payment_status=dto.payment_status,
+            checkout_link=dto.checkout_link,
         )
 
     @staticmethod

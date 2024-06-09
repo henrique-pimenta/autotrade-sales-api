@@ -3,7 +3,7 @@ from fastapi import HTTPException, Security
 from fastapi.security import APIKeyHeader
 
 
-def provide_api_key_auth(key_name: str) -> None:
+def provide_api_key_auth(key_name: str):
 
     def api_key_auth(
         api_key: str = Security(APIKeyHeader(name="Authorization")),
