@@ -18,6 +18,10 @@ class Vehicle(VehicleInterface):
         kilometerage: int,
         price_cents: int,
     ):
+        if not isinstance(id, UUID):
+            raise ValueError("Invalid ID")
+        if not isinstance(status, VehicleStatus):
+            raise ValueError("Invalid status")
         self._id = id
         self._status = status
         self._make = make

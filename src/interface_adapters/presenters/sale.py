@@ -30,14 +30,3 @@ class SalePresenter:
             sale_datetime=dto.sale_datetime,
             payment_status=dto.payment_status,
         )
-
-    @staticmethod
-    def format_list_response_for_pydantic(
-        dto: List[ReadSaleOutputDTO],
-    ) -> SaleFullModelCollection:
-        return SaleFullModelCollection(
-            sales=[
-                SalePresenter.format_find_response_for_pydantic(dto=vehicle_data)
-                for vehicle_data in dto
-            ]
-        )

@@ -5,6 +5,8 @@ from src.core.domain.shared.interfaces.validator import ValidatorInterface
 
 class CpfValidator(ValidatorInterface):
     def __init__(self, entity: CpfInterface):
+        if not isinstance(entity, CpfInterface):
+            raise TypeError("invalid entity")
         self._cpf = entity
 
     def validate(self):

@@ -47,22 +47,6 @@ async def create(
         raise HTTPException(status_code=500, detail="Internal Server Error") from e
 
 
-@router.get(
-    "/",
-    response_description="List sales",
-    response_model=SaleFullModelCollection,
-    status_code=status.HTTP_200_OK,
-)
-async def list(
-    sale_repository: SaleRepositoryInterface = Depends(provide_sale_repository),
-):
-    try:
-        response = await SaleController(sale_repository=sale_repository).list()
-        return response
-    except Exception as e:
-        raise HTTPException(status_code=500, detail="Internal Server Error") from e
-
-
 @router.patch(
     "/{id}",
     dependencies=[

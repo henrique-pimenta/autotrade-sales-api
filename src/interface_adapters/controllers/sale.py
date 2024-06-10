@@ -2,7 +2,6 @@ from pydantic import BaseModel
 from uuid import UUID
 
 from src.core.use_cases.sale.create import CreateSaleInteractor
-from src.core.use_cases.sale.read import ListSaleInteractor
 from src.core.use_cases.sale.update import UpdateSaleInteractor
 from src.interface_adapters.dtos.sale.create import CreateSaleInputDTO
 from src.interface_adapters.dtos.sale.update import UpdateSaleDTO
@@ -12,7 +11,6 @@ from src.interface_adapters.gateways.repositories.sale import SaleRepositoryInte
 from src.interface_adapters.models.sale import (
     SaleCreateInputModel,
     SaleCreateOutputModel,
-    SaleFullModelCollection,
     SaleUpdateInputModel,
 )
 from src.interface_adapters.models.shared import EmptyResponse
@@ -34,12 +32,6 @@ class SaleController:
             payment_gateway=payment_gateway,
         ).execute(input_dto=input_dto)
         return SalePresenter.format_create_response_for_pydantic(dto=output_dto)
-
-    async def list(self) -> SaleFullModelCollection:
-        output_dto = await ListSaleInteractor(
-            sale_repository=self.sale_repository
-        ).execute()
-        return SalePresenter.format_list_response_for_pydantic(dto=output_dto)
 
     async def update(
         self,

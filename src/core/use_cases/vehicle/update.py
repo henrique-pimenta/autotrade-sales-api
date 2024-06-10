@@ -15,7 +15,5 @@ class UpdateVehicleInteractor:
 
     async def execute(self, id: UUID, input_dto: UpdateVehicleDTO) -> UpdateVehicleDTO:
         output_dto = input_dto
-
         await self._vehicle_repository.update(id=id, dto=output_dto)
-
         return output_dto
