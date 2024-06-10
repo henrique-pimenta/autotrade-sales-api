@@ -1,7 +1,7 @@
 from typing import List, Optional
 from uuid import UUID
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
 
 
 class VehicleCreateInputModel(BaseModel):
@@ -13,9 +13,9 @@ class VehicleCreateInputModel(BaseModel):
     kilometerage: int = Field(...)
     price_cents: int = Field(...)
 
-    class Config:
-        populate_by_name = True
-        json_schema_extra = {
+    __config__ = ConfigDict(
+        populate_by_name=True,
+        json_schema_extra={
             "example": {
                 "id": "62101eba-142e-43d0-9215-f5f4f0940358",
                 "make": "Fiat",
@@ -25,7 +25,8 @@ class VehicleCreateInputModel(BaseModel):
                 "kilometerage": 56781,
                 "price_cents": 5289000,
             },
-        }
+        },
+    )
 
 
 class VehicleFullModel(BaseModel):
@@ -38,9 +39,9 @@ class VehicleFullModel(BaseModel):
     kilometerage: int = Field(...)
     price_cents: int = Field(...)
 
-    class Config:
-        populate_by_name = True
-        json_schema_extra = {
+    __config__ = ConfigDict(
+        populate_by_name=True,
+        json_schema_extra={
             "example": {
                 "id": "62101eba-142e-43d0-9215-f5f4f0940358",
                 "status": "available",
@@ -51,7 +52,8 @@ class VehicleFullModel(BaseModel):
                 "kilometerage": 56781,
                 "price_cents": 5289000,
             },
-        }
+        },
+    )
 
 
 class VehicleFullModelCollection(BaseModel):
@@ -66,10 +68,11 @@ class VehicleUpdateInputModel(BaseModel):
     kilometerage: Optional[int] = None
     price_cents: Optional[int] = None
 
-    class Config:
-        populate_by_name = True
-        json_schema_extra = {
+    __config__ = ConfigDict(
+        populate_by_name=True,
+        json_schema_extra={
             "example": {
                 "price_cents": 5089000,
             },
-        }
+        },
+    )
