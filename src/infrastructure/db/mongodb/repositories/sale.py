@@ -6,8 +6,8 @@ from src.interface_adapters.gateways.repositories.sale import SaleRepositoryInte
 
 
 class SaleRepository(SaleRepositoryInterface):
-    def __init__(self):
-        self._collection = get_collection("sales")
+    def __init__(self, collection=None):
+        self._collection = collection or get_collection("sales")
 
     async def create(self, dto):
         document = asdict(dto)

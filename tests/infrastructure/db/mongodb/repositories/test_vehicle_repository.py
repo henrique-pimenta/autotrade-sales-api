@@ -16,8 +16,7 @@ def mock_mongo_collection():
 
 @pytest.fixture
 def vehicle_repository(mock_mongo_collection):
-    repo = VehicleRepository()
-    repo._collection = mock_mongo_collection
+    repo = VehicleRepository(collection=mock_mongo_collection)
     return repo
 
 

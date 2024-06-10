@@ -8,8 +8,8 @@ from src.interface_adapters.gateways.repositories.vehicle import (
 
 
 class VehicleRepository(VehicleRepositoryInterface):
-    def __init__(self):
-        self._collection = get_collection("vehicles")
+    def __init__(self, collection=None):
+        self._collection = collection or get_collection("vehicles")
 
     async def create(self, dto):
         document = asdict(dto)

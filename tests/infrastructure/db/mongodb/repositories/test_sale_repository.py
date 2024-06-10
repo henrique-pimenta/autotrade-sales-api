@@ -16,8 +16,7 @@ def mock_mongo_collection():
 
 @pytest.fixture
 def sale_repository(mock_mongo_collection):
-    repo = SaleRepository()
-    repo._collection = mock_mongo_collection
+    repo = SaleRepository(collection=mock_mongo_collection)
     return repo
 
 
