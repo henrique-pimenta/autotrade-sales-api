@@ -1,8 +1,11 @@
-from pydantic import BaseModel
 from uuid import UUID
+
+from fastapi import Depends
+from pydantic import BaseModel
 
 from src.core.use_cases.sale.create import CreateSaleInteractor
 from src.core.use_cases.sale.update import UpdateSaleInteractor
+from src.infrastructure.db.mongodb.repositories.sale import provide_sale_repository
 from src.interface_adapters.dtos.sale.create import CreateSaleInputDTO
 from src.interface_adapters.dtos.sale.update import UpdateSaleDTO
 from src.interface_adapters.gateways.admin_service import AdminServiceGatewayInterface
@@ -45,3 +48,9 @@ class SaleController:
             admin_service_gateway=admin_service_gateway,
         ).execute(id=id, input_dto=input_dto)
         return EmptyResponse()
+
+
+def provide_sale_controller(
+    sale_repository: SaleRepositoryInterface = Depends(provide_sale_repository),
+) -> SaleController:
+    return SaleController(sale_repository=sale_repository)

@@ -17,10 +17,12 @@ from src.interface_adapters.gateways.repositories.sale import SaleRepositoryInte
 from src.interface_adapters.models.sale import (
     SaleCreateInputModel,
     SaleCreateOutputModel,
-    SaleFullModelCollection,
     SaleUpdateInputModel,
 )
-from src.interface_adapters.controllers.sale import SaleController
+from src.interface_adapters.controllers.sale import (
+    SaleController,
+    provide_sale_controller,
+)
 
 
 router = APIRouter()
@@ -34,11 +36,11 @@ router = APIRouter()
 )
 async def create(
     input_data: SaleCreateInputModel,
-    sale_repository: SaleRepositoryInterface = Depends(provide_sale_repository),
+    sale_controller: SaleController = Depends(provide_sale_controller),
     payment_gateway: PaymentGatewayInterface = Depends(provide_payment_gateway),
 ):
     try:
-        response = await SaleController(sale_repository=sale_repository).create(
+        response = await sale_controller.create(
             input_data=input_data,
             payment_gateway=payment_gateway,
         )

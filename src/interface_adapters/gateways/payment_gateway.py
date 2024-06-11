@@ -10,9 +10,7 @@ class PaymentGatewayInterface(ABC):
 
 class MockPaymentGateway(PaymentGatewayInterface):
     def get_checkout_link(self, sale_id):
-        checkout_link = (
-            f"https://mock-payment-gateway/get-checkout-link?sale-id={sale_id}"
-        )
+        checkout_link = f"https://example.com/get-checkout-link?sale-id={sale_id}"
         return checkout_link
 
 
