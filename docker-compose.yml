@@ -7,12 +7,12 @@ services:
       - db
     image: autotrade-sales-api-app:latest
     ports:
-      - 8000:8000
+      - 8001:8001
     volumes:
       - source: .
         target: /autotrade-sales-api
         type: bind
-    command: uvicorn src.interface_adapters.fastapi.main:app --host 0.0.0.0 --port 8000 --reload
+    command: uvicorn src.interface_adapters.fastapi.main:app --host 0.0.0.0 --port 8001 --reload
 
   db:
     container_name: autotrade-sales-api-db
