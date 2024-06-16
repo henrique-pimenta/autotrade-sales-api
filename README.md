@@ -1,4 +1,6 @@
 # autotrade-sales-api
+A backend microservice of a platform for trading vehicles. Built with FastAPI and MongoDB to be used in conjunction with https://github.com/henrique-pimenta/autotrade-admin-api
+
 ## Local testing instructions
 In order to start the application, follow these steps in the root directory of
 your local repository with an active virtual environment:
