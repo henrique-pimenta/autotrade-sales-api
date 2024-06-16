@@ -19,7 +19,7 @@ class ListVehicleInteractor:
     async def execute(self, sold: bool) -> List[ReadVehicleOutputDTO]:
         filter_query = {}
         if sold is not None:
-            vehicle_status = VehicleStatus.SOLD if sold else VehicleStatus.SOLD
+            vehicle_status = VehicleStatus.SOLD if sold else VehicleStatus.AVAILABLE
             filter_query["status"] = vehicle_status.value
 
         output_dto = await self._vehicle_repository.list(filter_query=filter_query)
