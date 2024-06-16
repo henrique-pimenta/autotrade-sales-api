@@ -4,6 +4,9 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import BaseModel
 
 from src.infrastructure.db.mongodb.repositories.sale import provide_sale_repository
+from src.infrastructure.db.mongodb.repositories.vehicle import (
+    provide_vehicle_repository,
+)
 from src.interface_adapters.fastapi.auth import provide_api_key_auth
 from src.interface_adapters.gateways.admin_service import (
     AdminServiceGatewayInterface,
@@ -14,6 +17,9 @@ from src.interface_adapters.gateways.payment_gateway import (
     provide_payment_gateway,
 )
 from src.interface_adapters.gateways.repositories.sale import SaleRepositoryInterface
+from src.interface_adapters.gateways.repositories.vehicle import (
+    VehicleRepositoryInterface,
+)
 from src.interface_adapters.models.sale import (
     SaleCreateInputModel,
     SaleCreateOutputModel,
@@ -62,6 +68,9 @@ async def update(
     id: UUID,
     input_data: SaleUpdateInputModel,
     sale_repository: SaleRepositoryInterface = Depends(provide_sale_repository),
+    vehicle_repository: VehicleRepositoryInterface = Depends(
+        provide_vehicle_repository
+    ),
     admin_service_gateway: AdminServiceGatewayInterface = Depends(
         provide_admin_service_gateway
     ),
@@ -70,6 +79,7 @@ async def update(
         response = await SaleController(sale_repository=sale_repository).update(
             id=id,
             input_data=input_data,
+            vehicle_repository=vehicle_repository,
             admin_service_gateway=admin_service_gateway,
         )
         return response

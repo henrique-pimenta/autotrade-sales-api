@@ -6,9 +6,13 @@ from src.core.domain.aggregates.vehicle.value_objects.vehicle_status import (
 )
 from src.core.domain.shared.exceptions.base import NotFoundException
 from src.interface_adapters.dtos.sale.update import UpdateSaleDTO
+from src.interface_adapters.dtos.vehicle.update import UpdateVehicleDTO
 from src.interface_adapters.gateways.admin_service import AdminServiceGatewayInterface
 from src.interface_adapters.gateways.repositories.sale import (
     SaleRepositoryInterface,
+)
+from src.interface_adapters.gateways.repositories.vehicle import (
+    VehicleRepositoryInterface,
 )
 
 
@@ -16,9 +20,11 @@ class UpdateSaleInteractor:
     def __init__(
         self,
         sale_repository: SaleRepositoryInterface,
+        vehicle_repository: VehicleRepositoryInterface,
         admin_service_gateway: AdminServiceGatewayInterface,
     ):
         self._sale_repository = sale_repository
+        self._vehicle_repository = vehicle_repository
         self._admin_service_gateway = admin_service_gateway
 
     async def execute(self, id: UUID, input_dto: UpdateSaleDTO) -> UpdateSaleDTO:
@@ -31,6 +37,10 @@ class UpdateSaleInteractor:
         await self._sale_repository.update(id=id, dto=output_dto)
 
         if PaymentStatus(output_dto.payment_status) == PaymentStatus.APPROVED:
+            await self._vehicle_repository.update(
+                id=read_sale_dto.vehicle_id,
+                dto=UpdateVehicleDTO(status=VehicleStatus.SOLD.value),
+            )
             self._admin_service_gateway.update_vehicle_status(
                 vehicle_id=read_sale_dto.vehicle_id, status=VehicleStatus.SOLD.value
             )

@@ -11,6 +11,9 @@ from src.interface_adapters.dtos.sale.update import UpdateSaleDTO
 from src.interface_adapters.gateways.admin_service import AdminServiceGatewayInterface
 from src.interface_adapters.gateways.payment_gateway import PaymentGatewayInterface
 from src.interface_adapters.gateways.repositories.sale import SaleRepositoryInterface
+from src.interface_adapters.gateways.repositories.vehicle import (
+    VehicleRepositoryInterface,
+)
 from src.interface_adapters.models.sale import (
     SaleCreateInputModel,
     SaleCreateOutputModel,
@@ -40,11 +43,13 @@ class SaleController:
         self,
         id: UUID,
         input_data: SaleUpdateInputModel,
+        vehicle_repository: VehicleRepositoryInterface,
         admin_service_gateway: AdminServiceGatewayInterface,
     ) -> BaseModel:
         input_dto = UpdateSaleDTO(**input_data.model_dump(exclude_unset=True))
         await UpdateSaleInteractor(
             sale_repository=self.sale_repository,
+            vehicle_repository=vehicle_repository,
             admin_service_gateway=admin_service_gateway,
         ).execute(id=id, input_dto=input_dto)
         return EmptyResponse()
