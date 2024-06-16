@@ -22,7 +22,7 @@ class AdminServiceGateway(AdminServiceGatewayInterface):
 
     def update_vehicle_status(self, vehicle_id, status):
         response = requests.patch(
-            f"{self._base_url}/vehicles/{vehicle_id}/",
+            f"{self._base_url}/vehicles/{vehicle_id}/update-status/",
             json={"status": status},
             headers=self._headers,
         )

@@ -15,6 +15,18 @@ class SaleRepository(SaleRepositoryInterface):
         document["vehicle_id"] = str(document["vehicle_id"])
         await self._collection.insert_one(document)
 
+    async def find_by_id(self, id):
+        document = await self._collection.find_one({"id": str(id)})
+        if not document:
+            return None
+        return ReadSaleOutputDTO(
+            id=document["id"],
+            vehicle_id=document["vehicle_id"],
+            buyer_cpf=document["buyer_cpf"],
+            sale_datetime=document["sale_datetime"],
+            payment_status=document["payment_status"],
+        )
+
     async def list(self, filter_query):
         cursor = self._collection.find(filter_query)
         documents = await cursor.to_list(length=None)

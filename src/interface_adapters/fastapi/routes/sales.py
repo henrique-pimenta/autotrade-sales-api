@@ -50,7 +50,7 @@ async def create(
 
 
 @router.patch(
-    "/{id}",
+    "/{id}/",
     dependencies=[
         Depends(provide_api_key_auth("REQUESTS_FROM_PAYMENT_GATEWAY_TO_SALES_API_KEY"))
     ],

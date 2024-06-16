@@ -32,7 +32,7 @@ class UpdateSaleInteractor:
 
         if PaymentStatus(output_dto.payment_status) == PaymentStatus.APPROVED:
             self._admin_service_gateway.update_vehicle_status(
-                vehicle_id=read_sale_dto.id, status=VehicleStatus.SOLD.value
+                vehicle_id=read_sale_dto.vehicle_id, status=VehicleStatus.SOLD.value
             )
 
         return output_dto
