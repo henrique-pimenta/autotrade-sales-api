@@ -20,14 +20,22 @@ def mock_sale_repository():
 
 
 @pytest.fixture
+def mock_vehicle_repository():
+    return MagicMock(spec=SaleRepositoryInterface)
+
+
+@pytest.fixture
 def mock_admin_service_gateway():
     return MagicMock(spec=AdminServiceGatewayInterface)
 
 
 @pytest.fixture
-def update_sale_interactor(mock_sale_repository, mock_admin_service_gateway):
+def update_sale_interactor(
+    mock_sale_repository, mock_vehicle_repository, mock_admin_service_gateway
+):
     return UpdateSaleInteractor(
         sale_repository=mock_sale_repository,
+        vehicle_repository=mock_vehicle_repository,
         admin_service_gateway=mock_admin_service_gateway,
     )
 
